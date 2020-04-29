@@ -48,7 +48,7 @@ public class ShiroConfig {
         return securityManager;
     }
 
-    @Bean
+    @Beans
     public ShiroRealm shiroRealm(){
         // 配置Realm，需自己实现
         ShiroRealm shiroRealm = new ShiroRealm();
