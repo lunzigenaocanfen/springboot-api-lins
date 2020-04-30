@@ -1,5 +1,7 @@
 package com.great.api.config;
 
+import com.great.api.common.shiro.ShiroRealm;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,12 @@ import java.util.LinkedHashMap;
 
 @Configuration
 public class ShiroConfig {
+    /**
+     * 需要注意的是filterChain基于短路机制，即最先匹配原则，如：
+     *
+     * /user/**=anon
+     * /user/aa=authc 永远不会执行
+     */
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -48,7 +56,7 @@ public class ShiroConfig {
         return securityManager;
     }
 
-    @Beans
+    @Bean
     public ShiroRealm shiroRealm(){
         // 配置Realm，需自己实现
         ShiroRealm shiroRealm = new ShiroRealm();
